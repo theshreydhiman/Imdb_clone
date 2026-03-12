@@ -23,7 +23,8 @@ class App extends React.Component {
       return Response.data;
     }));
 
-    this.setState({ Rivew: results });
+    // Use the callback version of setState to ensure state is updated correctly
+    this.setState((prevState) => ({ Rivew: [...prevState.Rivew, ...results] }));
     console.log(this.state.Rivew);
   };
 

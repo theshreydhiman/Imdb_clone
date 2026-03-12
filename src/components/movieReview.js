@@ -4,10 +4,11 @@ import React from 'react';
 
 const Moviereview = (props) => {
   console.log(props);
-  const Rivew = props.Rivew.map((rivew) => {
+  // Check if props.Rivew is an array before calling map
+  const Rivew = Array.isArray(props.Rivew) ? props.Rivew.map((rivew) => {
     // Using map to return an array of React elements
     return <h1>Hello</h1>;
-  });
+  }) : [];
   return (
     <div>
       movieReview
