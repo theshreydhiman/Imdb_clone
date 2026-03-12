@@ -16,16 +16,23 @@ class App extends React.Component {
     );
     // console.log(response.data);
 
-    const results = await Promise.all(response.data.Search.map(async (element) => {
-      const Response = await axios.get(
-        `https://www.omdbapi.com/?i=${element.imdbID}&apikey=21193e36`
-      );
-      return Response.data;
-    }));
+    // Check if response.data.Search exists before calling map on it
+    if (response.data.Search) {
+      const results = await Promise.all(response.data.Search.map(async (element) => {
+        const Response = await axios.get(
+          `https://www.omdbapi.com/?i=${element.imdbID}&apikey=21193e36`
+        );
+        return Response.data;
+      }));
 
-    // Use the callback version of setState to ensure state is updated correctly
-    this.setState((prevState) => ({ Rivew: [...prevState.Rivew, ...results] }));
-    console.log(this.state.Rivew);
+      // Use the callback version of setState to ensure state is updated correctly
+      this.setState((prevState) => ({ Rivew: [...prevState.Rivew, ...results] }));
+      console.log(this.state.Rivew);
+    } else {
+      // Handle the case when response.data.Search is undefined
+      console.log('No results found');
+      this.setState({ Rivew: [] }); // Clear the Rivew state if no results are found
+    }
   };
 
   render() {
