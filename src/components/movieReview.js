@@ -1,13 +1,18 @@
 
 import React from 'react';
-// import PropTypes from 'prop-types';
 
 const Moviereview = (props) => {
   console.log(props);
   // Check if props.Rivew is an array before calling map
-  const Rivew = Array.isArray(props.Rivew) ? props.Rivew.map((rivew) => {
+  const Rivew = Array.isArray(props.Rivew) ? props.Rivew.map((rivew, index) => {
     // Using map to return an array of React elements
-    return <h1>Hello</h1>;
+    return (
+      <div key={index}>
+        <h1>{rivew.title}</h1>
+        <img src={rivew.poster} alt={rivew.title} />
+        <p>Rating: {rivew.rating}</p>
+      </div>
+    );
   }) : [];
   return (
     <div>
