@@ -12,7 +12,7 @@ class App extends React.Component {
 
   onSearchSubmit = async (e) => {
     const response = await axios.get(
-      `https://www.omdbapi.com/?s=${e}&apikey=21193e36`
+      `https://www.omdbapi.com/?s=${e}&apikey=${process.env.REACT_APP_OMDB_API_KEY}`
     );
     // console.log(response.data);
 
@@ -20,7 +20,7 @@ class App extends React.Component {
     if (response.data.Search) {
       const results = await Promise.all(response.data.Search.map(async (element) => {
         const Response = await axios.get(
-          `https://www.omdbapi.com/?i=${element.imdbID}&apikey=21193e36`
+          `https://www.omdbapi.com/?i=${element.imdbID}&apikey=${process.env.REACT_APP_OMDB_API_KEY}`
         );
         return Response.data;
       }));
