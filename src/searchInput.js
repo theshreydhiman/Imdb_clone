@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class Weather extends React.Component {
+export default class SearchInput extends React.Component {
   state = { name: "" };
 
   onFormSubmit = (e) => {

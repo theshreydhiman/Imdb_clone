@@ -1,5 +1,4 @@
-
-import Movie from './searchInput';
+import SearchInput from './searchInput';
 import React from 'react';
 import './App.css';
 import axios from 'axios';
@@ -38,7 +37,7 @@ class App extends React.Component {
   render() {
     return (
       <div className='ui container' style={{ marginTop: '30px' }}>
-        <Movie onSearchSubmit={this.onSearchSubmit} />
+        <SearchInput onSearchSubmit={this.onSearchSubmit} />
         {/* <Response temp={this.state.temp} /> */}
         <Moviereview Rivew={this.state.Rivew} />
       </div>
