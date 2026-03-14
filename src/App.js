@@ -27,13 +27,13 @@ class App extends React.Component {
             );
             return Response.data;
           } catch (error) {
-            // If an error occurs while fetching individual movie data, log the error and return null
+            // Handle any errors that occur when fetching individual movie data
             console.error(`Error fetching movie data for ${element.imdbID}:`, error);
-            return null;
+            return null; // Return null to indicate an error occurred
           }
         }));
 
-        // Filter out any null values from the results array
+        // Filter out any null values (i.e., errors) from the results
         const filteredResults = results.filter(result => result !== null);
 
         // Use the callback version of setState to ensure state is updated correctly
@@ -45,7 +45,7 @@ class App extends React.Component {
         this.setState({ Rivew: [], error: 'No results found' }); // Clear the Rivew state if no results are found
       }
     } catch (error) {
-      // If an error occurs while fetching the search results, log the error and update the state
+      // Handle any errors that occur when fetching the initial search results
       console.error('Error fetching search results:', error);
       this.setState({ Rivew: [], error: 'Failed to fetch search results' });
     }
