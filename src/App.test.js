@@ -1,8 +1,11 @@
+
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+// Updated test to match the current app functionality
+test('renders movie search UI', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  // Assuming the app has a search input field
+  const searchInput = screen.getByRole('searchbox');
+  expect(searchInput).toBeInTheDocument();
 });
