@@ -1,0 +1,124 @@
+name: Create Project Issues
+on:
+  push:
+    branches:
+      - claude/evaluate-project-issues-65DaQ
+    paths:
+      - '.github/workflows/create-issues.yml'
+
+jobs:
+  create-issues:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Create Issue 1
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'Movie data not rendering: wrong OMDB API property names in movieReview.js',
+              body: `## Bug Description\n\nIn \`src/components/movieReview.js\`, the component accesses movie properties using lowercase names (\`rivew.title\`, \`rivew.poster\`, \`rivew.rating\`), but the OMDB API returns data with PascalCase property names (\`Title\`, \`Poster\`, \`imdbRating\`).\n\n## Expected Behavior\n\nMovie titles, posters, and ratings should render correctly after a search.\n\n## Actual Behavior\n\nNothing renders because \`rivew.title\`, \`rivew.poster\`, and \`rivew.rating\` are all \`undefined\`.\n\n## Fix\n\nUpdate property accesses to match OMDB API response: \`Title\`, \`Poster\`, \`imdbRating\`.`,
+              labels: ['bug', 'critical']
+            });
+      - name: Create Issue 2
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'Search results accumulate instead of replacing on new search',
+              body: `## Bug Description\n\nIn \`src/App.js\` line 39, \`setState\` appends new results to existing ones using spread operator on previous state.\n\n## Expected Behavior\n\nA new search should replace the previous results entirely.\n\n## Actual Behavior\n\nEach new search appends results to the list, causing duplicate/stale movies to pile up.\n\n## Fix\n\nReplace \`[...prevState.Rivew, ...filteredResults]\` with just \`filteredResults\`.`,
+              labels: ['bug']
+            });
+      - name: Create Issue 3
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'JSX comment rendered as visible text on page',
+              body: `## Bug Description\n\nIn \`src/components/movieReview.js\` line 21, the text \`// Render the Rivew variable\` is not inside a JSX comment block, so it renders as visible text in the browser.\n\n## Expected Behavior\n\nNo debug/comment text should appear in the UI.\n\n## Actual Behavior\n\nThe string \`// Render the Rivew variable\` is displayed to the user.\n\n## Fix\n\nRemove the inline comment from the JSX return.`,
+              labels: ['bug']
+            });
+      - name: Create Issue 4
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'Hardcoded debug text movieReview displayed to users',
+              body: `## Bug Description\n\nIn \`src/components/movieReview.js\` line 19, there is hardcoded debug text \`movieReview\` that renders at the top of the movie results section.\n\n## Expected Behavior\n\nNo debug text should be visible to end users.\n\n## Fix\n\nRemove the \`movieReview\` text and the \`<br />\` tag from the component return JSX.`,
+              labels: ['bug']
+            });
+      - name: Create Issue 5
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'Empty search query triggers unnecessary API call',
+              body: `## Bug Description\n\nIn \`src/searchInput.js\`, the form can be submitted with an empty input value. There is no validation to prevent submitting a blank search query.\n\n## Expected Behavior\n\nEmpty or whitespace-only search submissions should be blocked.\n\n## Actual Behavior\n\nAn empty string is passed to the OMDB API, wasting an API call and returning no useful results.\n\n## Fix\n\nAdd input validation in \`onFormSubmit\` to reject empty/whitespace-only queries.`,
+              labels: ['bug']
+            });
+      - name: Create Issue 6
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'Semantic UI CSS loaded over HTTP causes mixed content blocking',
+              body: `## Bug Description\n\nIn \`public/index.html\` line 5, Semantic UI CSS is loaded over plain HTTP instead of HTTPS.\n\n## Expected Behavior\n\nExternal resources should be loaded over HTTPS.\n\n## Actual Behavior\n\nWhen the app is served over HTTPS, the browser blocks the HTTP resource, causing all Semantic UI styles to fail to load.\n\n## Fix\n\nChange \`http://\` to \`https://\` in the stylesheet link.`,
+              labels: ['bug']
+            });
+      - name: Create Issue 7
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'Error messages are never displayed to the user',
+              body: `## Bug Description\n\n\`App.js\` sets an \`error\` state and passes it as a prop to \`Moviereview\`, but \`movieReview.js\` never reads or renders \`props.error\`.\n\n## Expected Behavior\n\nWhen a search fails or returns no results, the user should see an error message.\n\n## Actual Behavior\n\nThe error state is set but never rendered. The user sees no feedback when something goes wrong.\n\n## Fix\n\nRender \`props.error\` in the Moviereview component.`,
+              labels: ['bug']
+            });
+      - name: Create Issue 8
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'No loading indicator while fetching search results',
+              body: `## Bug Description\n\nWhen a user submits a search, multiple API calls are made. There is no loading state or spinner shown during this time.\n\n## Expected Behavior\n\nA loading indicator should be displayed while API requests are in progress.\n\n## Actual Behavior\n\nThe UI appears frozen/unresponsive while waiting for API responses.\n\n## Fix\n\nAdd a \`loading\` state to \`App.js\`, toggle it around API calls, and render a loading indicator.`,
+              labels: ['enhancement']
+            });
+      - name: Create Issue 9
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'Test fails: search input role mismatch (text vs searchbox)',
+              body: `## Bug Description\n\nIn \`src/App.test.js\` line 9, the test expects \`getByRole('searchbox')\`, but the input in \`searchInput.js\` has \`type=\"text\"\` which has role \`textbox\`.\n\n## Expected Behavior\n\nThe test should pass and correctly locate the search input element.\n\n## Actual Behavior\n\nThe test fails because no element with the \`searchbox\` role exists.\n\n## Fix\n\nChange the input type to \`search\` in \`searchInput.js\`, or update the test to use \`getByRole('textbox')\`.`,
+              labels: ['bug']
+            });
+      - name: Create Issue 10
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'Array index used as React key instead of unique movie ID',
+              body: `## Bug Description\n\nIn \`src/components/movieReview.js\` line 10, array index is used as the React key instead of the movie's unique \`imdbID\`.\n\n## Expected Behavior\n\nReact keys should use stable, unique identifiers for efficient reconciliation.\n\n## Actual Behavior\n\nUsing index as key causes incorrect component reuse and potential rendering bugs when the list changes.\n\n## Fix\n\nUse \`rivew.imdbID\` as the key.`,
+              labels: ['bug']
+            });
