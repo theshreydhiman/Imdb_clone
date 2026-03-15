@@ -8,9 +8,9 @@ const Moviereview = (props) => {
     // Using map to return an array of React elements
     return (
       <div key={index}>
-        <h1>{rivew.title}</h1>
-        <img src={rivew.poster} alt={rivew.title} />
-        <p>Rating: {rivew.rating}</p>
+        <h1>{rivew.Title}</h1>
+        <img src={rivew.Poster} alt={rivew.Title} />
+        <p>Rating: {rivew.imdbRating}</p>
       </div>
     );
   }) : [];
