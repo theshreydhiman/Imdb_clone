@@ -18,7 +18,7 @@ const Moviereview = (props) => {
     <div>
       movieReview
       <br />
-      {Rivew} // Render the Rivew variable
+      {Rivew} 
     </div>
   );
 };
