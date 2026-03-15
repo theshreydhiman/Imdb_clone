@@ -1,3 +1,4 @@
+
 import SearchInput from './searchInput';
 import React from 'react';
 import './App.css';
@@ -36,7 +37,7 @@ class App extends React.Component {
         const filteredResults = results.filter(result => result !== null);
 
         // Use the callback version of setState to ensure state is updated correctly
-        this.setState((prevState) => ({ Rivew: [...prevState.Rivew, ...filteredResults] }));
+        this.setState({ Rivew: filteredResults }); // Update state assignment to replace previous state
         console.log(this.state.Rivew);
       } else {
         // Handle the case when response.data.Search is undefined
