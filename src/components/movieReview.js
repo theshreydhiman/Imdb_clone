@@ -16,8 +16,6 @@ const Moviereview = (props) => {
   }) : [];
   return (
     <div>
-      movieReview
-      <br />
       {Rivew} 
     </div>
   );
