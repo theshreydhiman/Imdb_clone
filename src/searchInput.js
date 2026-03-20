@@ -1,3 +1,4 @@
+
 import React from "react";
 
 export default class SearchInput extends React.Component {
@@ -5,7 +6,10 @@ export default class SearchInput extends React.Component {
 
   onFormSubmit = (e) => {
     e.preventDefault();
-    this.props.onSearchSubmit(this.state.name);
+    const trimmedName = this.state.name.trim();
+    if (trimmedName !== '') {
+      this.props.onSearchSubmit(trimmedName);
+    }
   };
 
   render() {
