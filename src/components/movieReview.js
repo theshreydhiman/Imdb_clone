@@ -14,10 +14,15 @@ const Moviereview = (props) => {
       </div>
     );
   }) : [];
+  
+  // Render the error message if it exists
+  const errorMessage = props.error ? <p style={{ color: 'red' }}>{props.error}</p> : null;
+
   return (
     <div>
       movieReview
       <br />
+      {errorMessage} 
       {Rivew} 
     </div>
   );
